@@ -28,7 +28,8 @@
     </scm>
     <properties>
         <java.version>17</java.version>
-        <org.apache.camel.version>4.8.0</org.apache.camel.version>
+        <org.apache.camel.version>4.0.6</org.apache.camel.version>
+        <com.fasterxml.jackson.dataformat.version>2.17.2</com.fasterxml.jackson.dataformat.version>
     </properties>
     <dependencies>
         <dependency>
@@ -41,6 +42,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <!-- Apache Camel Core -->
         <dependency>
@@ -51,15 +56,15 @@
 
         <!-- Camel FTP Component -->
         <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-ftp-starter</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-ftp</artifactId>
             <version>${org.apache.camel.version}</version>
         </dependency>
 
         <!-- Camel Jackson for JSON processing -->
         <dependency>
-            <groupId>org.apache.camel.springboot</groupId>
-            <artifactId>camel-jackson-starter</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
             <version>${org.apache.camel.version}</version>
         </dependency>
 
@@ -68,6 +73,112 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jaxb</artifactId>
             <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-servlet-starter</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+
+        <!-- Jackson data format for XML support -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jacksonxml</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!-- Camel HTTP component -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-http</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!-- Camel Metrics -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-metrics</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!--
+                lib camel-bean used because some custom camel processors, routes
+                used bean endpoint uri to call some methods in a bean in these locations,
+                example : to("bean:xxx?method=yyy"") or toD(dynacmic bean & method determined at runtime [bean:xxx?method=yyy])
+                or producerTemplate.requestBody("bean:<processor class name>"")
+            -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-bean</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!--
+            lib camel-direct used because some custom camel processors, routes
+            used direct endpoint uri to call some routes in a direct, synchronous invocation style in these locations,
+            example : to(direct:xxx) or toD(direct:xxx) or producerTemplate.requestBody(bean:<processor class name>)
+        -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-direct</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!--
+            lib camel-log used because some custom camel processors, routes
+            used logging with field masking enabled in these locations,
+
+            example: .to(log:<loggername>?logMask=true&showBody=true&multiline=true&skipBodyLineSeparator=false) or
+
+            producerTemplate.requestBody(log:<loggername>?logMask=true&showBody=true&multiline=true&skipBodyLineSeparator=false)
+
+            For more info, please refer to GatewayConfig.java -> camelContext.setLogMask(true) or MaskingFormatter
+        -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-log</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+
+        <!--
+            lib camel-rest used because some custom camel processors, routes
+            may have used REST endpoint uri to manage RESTful API call, if the server side supports RESTful,
+            or no HTTP socket read timeout requirement, HTTP keep alive forever.
+
+
+            REST endpoint uri may be used in these locations,
+            example : to("rest:<url>"") or toD(dynacmic rest url [rest:<url>])
+            or producerTemplate.requestBody("rest:<url>")
+
+            camel-rest producer suports camel-jetty or camel-http as underlying HTTP client to manage the REST API call.
+        -->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-rest</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-kafka-starter</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!-- Kafka Client -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+        </dependency>
+
+
+        <!-- Optional: If you need more features of Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>${com.fasterxml.jackson.dataformat.version}</version>
         </dependency>
 
         <dependency>
