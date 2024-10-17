@@ -20,7 +20,7 @@ public class WebSecurityConfig {
     "/swagger-resources/**",
     "/swagger-ui/**",
     "/v2/api-docs",
-    "/v3/api-docs",
+    "/v3/api-docs/**",
     "/webjars/**"
   };
 
@@ -35,6 +35,7 @@ public class WebSecurityConfig {
       .authorizeHttpRequests(auth -> auth
         // Allow all users to access /swagger/** without any authentication or authorization
         .requestMatchers(SWAGGER_WHITELIST).permitAll() // public endpoints for swagger
+        .requestMatchers("/api/v1/**").permitAll() // public endpoints for swagger
 
         // Any other requests not explicitly matched above should be authenticated
         .anyRequest().authenticated() // Secures all other endpoints

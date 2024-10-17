@@ -9,6 +9,8 @@ import org.apache.camel.model.dataformat.JacksonXMLDataFormat;
 @Component
 public class FileProcessingRoute extends RouteBuilder {
 
+  public static final String DIRECT_PROCESS_XML_FILE = "direct:processFile";
+
   @Override
   public void configure() throws Exception {
     // Error handling
@@ -67,10 +69,10 @@ public class FileProcessingRoute extends RouteBuilder {
       .post("/xml")
       .consumes("multipart/form-data")
       .produces("application/json")
-      .to("direct:processFile");
+      .to(DIRECT_PROCESS_XML_FILE);
 
     // Define Camel route for file processing
-    from("direct:processFile")
+    from(DIRECT_PROCESS_XML_FILE)
       .log("Received file for processing: ${header.CamelFileName}")
 
       // Retrieve the file input stream from the upload
