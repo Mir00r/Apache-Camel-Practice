@@ -241,6 +241,24 @@
             <version>${org.apache.camel.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-jms-starter</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-spring-rabbitmq</artifactId>
+            <version>${org.apache.camel.version}</version>
+        </dependency>
+
+        <!-- RabbitMQ Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+            <version>3.3.2</version>
+        </dependency>
+
         <!-- Kafka Client -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
