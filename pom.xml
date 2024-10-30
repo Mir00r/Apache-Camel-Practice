@@ -95,6 +95,20 @@
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
 <!--        </dependency>-->
 
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.camel.springboot</groupId>-->
+<!--            <artifactId>camel-jwt-starter</artifactId>-->
+<!--            <version>${org.apache.camel.version}</version>-->
+<!--        </dependency>-->
+
+        <!-- JWT -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
         <dependency>
             <groupId>org.springframework</groupId>

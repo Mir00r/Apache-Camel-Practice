@@ -24,12 +24,15 @@ package com.mir00r.configs;
 //    "/webjars/**",
 //    "/swagger-ui.html"
 //  };
-//
-//  // Define the main security configuration for handling different aspects of security
+
+  // Define the main security configuration for handling different aspects of security
 //  @Bean
 //  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //    http
-//      // Default exception handling for security-related errors (e.g., 403, 401)
+//      .authorizeHttpRequests(auth -> auth
+//        .anyRequest().permitAll()
+//      )
+      // Default exception handling for security-related errors (e.g., 403, 401)
 //      .exceptionHandling(Customizer.withDefaults())
 //
 //      // Configure authorization rules for different endpoints
@@ -52,9 +55,9 @@ package com.mir00r.configs;
 //
 //      // Enable HTTP Basic Authentication for the API (username and password authentication)
 //      .httpBasic(Customizer.withDefaults())
-//    ;
-//
-//    // Build and return the SecurityFilterChain object
+    ;
+
+    // Build and return the SecurityFilterChain object
 //    return http.build();
 //  }
 //
