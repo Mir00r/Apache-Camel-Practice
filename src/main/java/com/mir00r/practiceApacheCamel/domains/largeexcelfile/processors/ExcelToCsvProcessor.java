@@ -1,7 +1,7 @@
 package com.mir00r.practiceApacheCamel.domains.largeexcelfile.processors;
 
-import com.mir00r.practiceApacheCamel.domains.commons.Constants;
-import com.mir00r.practiceApacheCamel.domains.utils.AppUtil;
+import com.mir00r.practiceApacheCamel.commons.Constants;
+import com.mir00r.practiceApacheCamel.utils.AppUtil;
 import com.opencsv.CSVWriter;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
