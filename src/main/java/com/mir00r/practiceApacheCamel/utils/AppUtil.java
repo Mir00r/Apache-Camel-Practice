@@ -33,6 +33,11 @@ public class AppUtil {
       + "}";
   }
 
+  public static String getHeaderUri(String propertyName) {
+    return "${header." + propertyName
+      + "}";
+  }
+
   public static String getExpressionPredicate(String propertyName, String condition) {
     return "${exchangeProperty." + propertyName + "} " + condition;
   }

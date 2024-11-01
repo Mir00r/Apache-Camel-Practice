@@ -2,6 +2,7 @@ package com.mir00r.practiceApacheCamel.domains.challengequestions.processors;
 
 import com.mir00r.practiceApacheCamel.domains.challengequestions.models.ChallengeQRq;
 import com.mir00r.practiceApacheCamel.domains.challengequestions.models.ChallengeQRs;
+import com.mir00r.practiceApacheCamel.domains.challengequestions.routes.ShortMsgMainRoute;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
@@ -29,13 +30,13 @@ public class ChallengeQuestionProcessor implements Processor {
   @Override
   public void process(Exchange exchange) throws Exception {
     Map<String,Object> headers = exchange.getIn().getHeaders();
-
     ChallengeQRq body = exchange.getIn().getBody(ChallengeQRq.class);
 
     headers.put(IMPL_BEAN_REF, IMPL_BEAN_REF);
 
     ChallengeQRs
-      wsResponse = producerTemplate.requestBodyAndHeaders(ShortMsgMainRoute.ENDPOINT_URI, body, headers, ChallengeQRs.class);
+      wsResponse = producerTemplate.requestBodyAndHeaders(
+      ShortMsgMainRoute.DIRECT_CHALLENGE_QUESTION, body, headers, ChallengeQRs.class);
 
     exchange.getIn().setBody(wsResponse);
   }
