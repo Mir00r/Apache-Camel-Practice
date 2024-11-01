@@ -3,7 +3,7 @@ package com.mir00r.practiceApacheCamel.soap.commons;
 import com.mir00r.practiceApacheCamel.utils.AppUtil;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -66,7 +66,7 @@ public abstract class SoapRequestHandlerRoute extends RouteBuilder {
       .end();
   }
 
-  public abstract SoapJaxbDataFormat getDataFormat();
+  public abstract SoapDataFormat getDataFormat();
 
   public abstract String getRouteFromUri();
 

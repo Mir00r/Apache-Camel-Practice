@@ -4,7 +4,7 @@ import com.mir00r.practiceApacheCamel.domains.challengequestions.ChallengeQuesti
 import com.mir00r.practiceApacheCamel.domains.challengequestions.beans.ChallengeQClientService;
 import com.mir00r.practiceApacheCamel.soap.commons.SoapRequestHandlerRoute;
 import com.mir00r.practiceApacheCamel.soap.commons.SoapResponseHandlerRoute;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ShortMsgReceiverRoute extends SoapResponseHandlerRoute {
   }
 
   @Override
-  public SoapJaxbDataFormat getDataFormat() {
+  public SoapDataFormat getDataFormat() {
     return this.challengeQClientService.getDataFormat();
   }
 

@@ -4,7 +4,7 @@ import com.mir00r.practiceApacheCamel.utils.AppUtil;
 import jakarta.xml.ws.soap.SOAPFaultException;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -127,7 +127,7 @@ public abstract class SoapResponseHandlerRoute extends RouteBuilder {
       .end();
   }
 
-  public abstract SoapJaxbDataFormat getDataFormat();
+  public abstract SoapDataFormat getDataFormat();
 
   public abstract String getRouteFromUri();
 

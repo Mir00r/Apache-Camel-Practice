@@ -4,7 +4,8 @@ package com.mir00r.practiceApacheCamel.domains.challengequestions.models.rsa;
 import lombok.Data;
 
 @Data
-public class OobEmailChallengeRequest {
+public class ChallengeQuestionChallenge {
 
-    protected OOBEmailChallengeRequestPayload payload;
+    protected ChallengeQuestionChallengePayload payload;
+
 }

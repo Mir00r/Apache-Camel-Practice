@@ -8,7 +8,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.ExchangeProperties;
 import org.apache.camel.Headers;
 import org.apache.camel.component.cxf.CxfEndpointConfigurer;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
@@ -112,11 +112,11 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
   // region Data Format and SSL Configuration
 
   /**
-   * Gets the SoapJaxbDataFormat for this service. Should be injected during bean construction.
+   * Gets the SoapDataFormat for this service. Should be injected during bean construction.
    *
    * @return The SOAP JAXB data format
    */
-  SoapJaxbDataFormat getDataFormat();
+  SoapDataFormat getDataFormat();
 
   /**
    * Gets the SSL context parameters bean name. Used to override HTTP SSL for self-signed
@@ -204,7 +204,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
    * @param properties Exchange properties
    * @return The error response
    */
-  WS_RP mapToWsResponse(SOAPFaultException exception, SoapJaxbDataFormat dataFormat,
+  WS_RP mapToWsResponse(SOAPFaultException exception, SoapDataFormat dataFormat,
     Map<String, Object> properties);
 
   WS_RP mapToWsResponse(org.apache.cxf.interceptor.Fault fault, Map<String, Object> properties);
@@ -232,7 +232,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
    * @return The initialized data format
    * @throws ClassNotFoundException if service interface cannot be found
    */
-  default SoapJaxbDataFormat initDataFormat() throws ClassNotFoundException {
+  default SoapDataFormat initDataFormat() throws ClassNotFoundException {
     long start = System.currentTimeMillis();
 
     Class<?> serviceInterface = Class.forName(getPackageName() + "." + getServiceInterfaceName());
@@ -242,7 +242,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
       getLogger().debug("Class.forName took {}ms", (end - start));
     }
 
-    SoapJaxbDataFormat format = new SoapJaxbDataFormat(
+    SoapDataFormat format = new SoapDataFormat(
       getPackageName(),
       new ServiceInterfaceStrategy(serviceInterface, true)
     );
@@ -257,7 +257,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
    *
    * @param format The SOAP JAXB data format to configure
    */
-  default void configureMarshallerProperties(SoapJaxbDataFormat format) {
+  default void configureMarshallerProperties(SoapDataFormat format) {
     Map<String, Object> props = new HashMap<>();
     props.put(Marshaller.JAXB_FORMATTED_OUTPUT, true);
     props.put(CharacterEscapeHandler.class.getName(),
@@ -273,7 +273,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
 
     String soapAction = (String) properties.get(SOAP_ACTION);
     String contentType = (String) properties.get(SOAP_CONTENT_TYPE);
-    SoapJaxbDataFormat dataFormat = (SoapJaxbDataFormat) properties.get(SOAP_DATA_FORMAT);
+    SoapDataFormat dataFormat = (SoapDataFormat) properties.get(SOAP_DATA_FORMAT);
 
     String version = StringUtils.trim(dataFormat.getVersion());
 
@@ -306,7 +306,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
   }
 
   default String setupEndpointUri(String packageName, String serviceName, String url,
-    SoapJaxbDataFormat dataFormat, String portName, String headerFilterStrategy) {
+    SoapDataFormat dataFormat, String portName, String headerFilterStrategy) {
 
     List<String> versions = getSupportedVersions();
     String bindingId = null;
@@ -380,10 +380,10 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
 
 
 
-  default String setupHttpContentType(SoapJaxbDataFormat dataFormat) {
+  default String setupHttpContentType(SoapDataFormat dataFormat) {
 
     /*
-     * Please take note, because of using SoapJaxbDataFormat to marshal WS_RQ into SOAP request xml string,
+     * Please take note, because of using SoapDataFormat to marshal WS_RQ into SOAP request xml string,
      * the generated HTTP Header Content-Type by CFX is defaulted as application/xml instead of 'text/xml or application/soap+xml',
      * so we need to override it.
      */
@@ -425,7 +425,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
 
     String url = getUrl();
     String serviceName = getServiceName();
-    SoapJaxbDataFormat dataFormat = getDataFormat();
+    SoapDataFormat dataFormat = getDataFormat();
     String packageName = getPackageName();
     String portName = getPortName();
     String headerFilterStrategy = getCustomHeaderFilterStrategy();
@@ -463,7 +463,7 @@ public interface ISoapClientBaseService<WS_RQ, SOAP_BODY_RQ, SOAP_BODY_RP, WS_RP
     SOAPFaultException soapFaultException =
       (SOAPFaultException) properties.get(Exchange.EXCEPTION_CAUGHT);
 
-    SoapJaxbDataFormat dataFormat = (SoapJaxbDataFormat) properties.get(SOAP_DATA_FORMAT);
+    SoapDataFormat dataFormat = (SoapDataFormat) properties.get(SOAP_DATA_FORMAT);
 
     return mapToWsResponse(soapFaultException, dataFormat, properties);
   }

@@ -10,6 +10,5 @@ public class ChallengeResponse2
     extends GenericResponse
 {
     protected CredentialChallengeList credentialChallengeList;
-    
-    protected DeviceManagementResponsePayload deviceManagementResponse;
+
 }

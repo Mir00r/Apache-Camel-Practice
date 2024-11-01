@@ -7,7 +7,7 @@ import com.mir00r.practiceApacheCamel.domains.challengequestions.models.rsa.Chal
 import com.mir00r.practiceApacheCamel.soap.commons.ISoapClientBaseService;
 import com.mir00r.practiceApacheCamel.soap.commons.SoapInputFieldValueException;
 import jakarta.xml.ws.soap.SOAPFaultException;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.apache.cxf.interceptor.Fault;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class ChallengeQClientService implements ISoapClientBaseService<ChallengeQRq, Challenge, ChallengeResponse, ChallengeQRs> {
 
-  private SoapJaxbDataFormat soapJaxbDataFormat = null;
+  private SoapDataFormat SoapDataFormat = null;
 
   private static final Logger log = LoggerFactory.getLogger(ChallengeQClientService.class);
 
@@ -99,7 +99,7 @@ public class ChallengeQClientService implements ISoapClientBaseService<Challenge
   }
 
   @Override
-  public SoapJaxbDataFormat getDataFormat() {
+  public SoapDataFormat getDataFormat() {
     return null;
   }
 
@@ -115,7 +115,7 @@ public class ChallengeQClientService implements ISoapClientBaseService<Challenge
 
   @Override
   public Long getReceiveTimeout() {
-    return null;
+    return 0L;
   }
 
   @Override
@@ -148,7 +148,7 @@ public class ChallengeQClientService implements ISoapClientBaseService<Challenge
   }
 
   @Override
-  public ChallengeQRs mapToWsResponse(SOAPFaultException exception, SoapJaxbDataFormat dataFormat,
+  public ChallengeQRs mapToWsResponse(SOAPFaultException exception, SoapDataFormat dataFormat,
     Map<String, Object> properties) {
     return null;
   }
